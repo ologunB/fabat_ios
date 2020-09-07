@@ -1,0 +1,48 @@
+name: mechapp
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences:
+  image_picker:  #  TODO configure for iOS later
+  google_maps_flutter: ^0.5.24+1 #  TODO configure for iOS later
+  firebase_database:
+  firebase_storage:
+  intent: ^1.1.0
+  firebase_core: ^0.4.0+9
+  firebase_auth: ^0.14.0+5
+  cloud_firestore: ^0.13.4+2
+  url_launcher:
+  cached_network_image:
+  rave_flutter: ^0.0.9-alpha+1 #  TODO configure the iOS version later
+  geolocator: ^6.0.0 #  TODO configure the iOS version later
+  geocoder: ^0.2.1
+  geocoding:
+  geolocator_platform_interface:
+  intl:
+  smooth_star_rating:
+  floor: ^0.12.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  floor_generator: ^0.12.0
+  build_runner: ^1.7.3
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/raleway.ttf
