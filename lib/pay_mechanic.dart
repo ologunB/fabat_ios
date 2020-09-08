@@ -598,6 +598,43 @@ class _PayMechanicPageState extends State<PayMechanicPage> {
               padding: EdgeInsets.all(5.0),
               child: CupertinoTextField(
                 prefix: Padding(
+                  padding: const EdgeInsets.only(left:8.0),
+                  child: CachedNetworkImage(
+                    imageUrl: chosenImage,
+                    height: 30,
+                    width: 30,
+                    placeholder: (_, url) =>
+                        CupertinoActivityIndicator(radius: 10),
+                    errorWidget: (_, url, error) => Container(
+                      height: 30,
+                      width: 30,
+                      decoration: new BoxDecoration(
+                        image: new DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage("assets/images/car.png"),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                placeholder: "Add Car",
+                readOnly: true,
+                onTap: (){
+                  onAddCar(context);
+                },
+
+                enabled: false,
+                placeholderStyle: TextStyle(),
+                controller: amountController,
+                padding: EdgeInsets.all(10),
+                style: TextStyle(fontSize: 22),
+                keyboardType: TextInputType.numberWithOptions(),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+              child: CupertinoTextField(
+                prefix: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Image(
                     image: AssetImage("assets/images/naira_icon.png"),
@@ -778,6 +815,172 @@ class _PayMechanicPageState extends State<PayMechanicPage> {
               iconLeft: false,
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+ void onAddCar(context){
+    scaffoldKey.currentState.showBottomSheet(
+          (_) => Container(
+        height: MediaQuery.of(context).size.height / 3,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            CustomButton(
+              title: "   Add Car   ",
+              onPress: () {
+                Navigator.of(context).push(
+                  CupertinoPageRoute(
+                    fullscreenDialog: true,
+                    builder: (context) {
+                      return AddCarActivity();
+                    },
+                  ),
+                );
+              },
+              icon: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ),
+            Expanded(
+              child: MediaQuery.removePadding(
+                child: cars.length == 0
+                    ? emptyList("Cars")
+                    : ListView.builder(
+                  itemCount: cars.length,
+                  itemBuilder: (_, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        carController.text =
+                            cars[index].brand +
+                                " " +
+                                cars[index].model +
+                                ", " +
+                                cars[index].date;
+                        chosenImage = cars[index].img;
+                        setState(() {});
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black12)
+                            ],
+                            borderRadius:
+                            BorderRadius.circular(15),
+                          ),
+                          child: Center(
+                            child: ListTile(
+                              title: Row(
+                                children: <Widget>[
+                                  Text(
+                                    cars[index].brand,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight:
+                                        FontWeight.w700,
+                                        color:
+                                        Colors.black),
+                                  ),
+                                  Text(
+                                    " - ${cars[index].date}",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight:
+                                        FontWeight.w400,
+                                        color:
+                                        Colors.black54),
+                                  )
+                                ],
+                              ),
+                              subtitle: Text(
+                                cars[index].model,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight:
+                                  FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              leading: CachedNetworkImage(
+                                imageUrl: cars[index].img,
+                                height: 50,
+                                width: 50,
+                                placeholder: (context,
+                                    url) =>
+                                    CupertinoActivityIndicator(
+                                        radius: 10),
+                                errorWidget:
+                                    (context, url, error) =>
+                                    Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration:
+                                      new BoxDecoration(
+                                        image:
+                                        new DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: AssetImage(
+                                              "assets/images/car.png"),
+                                        ),
+                                      ),
+                                    ),
+                              ),
+                              trailing: IconButton(
+                                  icon: Icon(
+                                    Icons.delete,
+                                    size: 30,
+                                    color: Colors.red,
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible:
+                                      true,
+                                      builder: (_) =>
+                                          CustomDialog(
+                                            title:
+                                            "Are you sure you want to remove the car from garage?",
+                                            onClicked: () {
+                                              Navigator.pop(
+                                                  context);
+                                              carsReference
+                                                  .child(cars[
+                                              index]
+                                                  .id)
+                                                  .remove();
+                                              setState(() {
+                                                cars.removeAt(
+                                                    index);
+                                              });
+                                            },
+                                            includeHeader: true,
+                                          ),
+                                    );
+                                  }),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                context: context,
+              ),
+            ),
+          ],
+        ),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
       ),
     );

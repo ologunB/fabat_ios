@@ -103,6 +103,7 @@ class _SignInPageState extends State<SignInPage> {
   bool forgotPassIsLoading = false;
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
   Future signIn(String email, String password, context) async {
     setState(() {
       isLoading = true;
@@ -542,6 +543,7 @@ class _SignUpPageState extends State<SignUpPage> {
     MechSignUp(),
   ];
   Widget currentWidget = CusSignUp();
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -622,6 +624,7 @@ class _CusSignUpState extends State<CusSignUp> {
               .then((b) {
             showCupertinoDialog(
                 context: context,
+                barrierDismissible: true,
                 builder: (_) {
                   return CupertinoAlertDialog(
                     title: Text(
@@ -684,12 +687,11 @@ class _CusSignUpState extends State<CusSignUp> {
                     padding: EdgeInsets.all(8.0),
                     child: CupertinoTextField(
                       //decoration: InputDecoration(hintText: "Email"),
-                      controller: _upName, padding: EdgeInsets.all(10),
+                      controller: _upName,
+                      padding: EdgeInsets.all(10),
                       keyboardType: TextInputType.text,
                       placeholderStyle: TextStyle(fontWeight: FontWeight.w400),
-
                       placeholder: "Full Name",
-
                       style: TextStyle(fontSize: 20, color: Colors.black),
                     ),
                   ),
@@ -698,10 +700,10 @@ class _CusSignUpState extends State<CusSignUp> {
                     child: CupertinoTextField(
                       //decoration: InputDecoration(hintText: "Email"),
                       controller: _upEmail,
-                      placeholder: "Email", padding: EdgeInsets.all(10),
+                      placeholder: "Email",
+                      padding: EdgeInsets.all(10),
                       keyboardType: TextInputType.emailAddress,
                       placeholderStyle: TextStyle(fontWeight: FontWeight.w400),
-
                       style: TextStyle(fontSize: 20, color: Colors.black),
                     ),
                   ),
@@ -710,7 +712,8 @@ class _CusSignUpState extends State<CusSignUp> {
                     child: CupertinoTextField(
                       //decoration: InputDecoration(hintText: "Email"),
                       controller: _upPhoNum,
-                      placeholder: "Phone Number", padding: EdgeInsets.all(10),
+                      placeholder: "Phone Number",
+                      padding: EdgeInsets.all(10),
                       keyboardType: TextInputType.number,
                       placeholderStyle: TextStyle(fontWeight: FontWeight.w400),
 
@@ -723,7 +726,8 @@ class _CusSignUpState extends State<CusSignUp> {
                       //decoration: InputDecoration(hintText: "Password"),
                       controller: _upPass,
                       placeholder: "Password",
-                      obscureText: true, padding: EdgeInsets.all(10),
+                      obscureText: true,
+                      padding: EdgeInsets.all(10),
                       placeholderStyle: TextStyle(fontWeight: FontWeight.w400),
 
                       style: TextStyle(fontSize: 20, color: Colors.black),
@@ -733,7 +737,7 @@ class _CusSignUpState extends State<CusSignUp> {
                     padding: EdgeInsets.all(8.0),
                     child: Row(
                       children: <Widget>[
-                        Text("Already A Member?",
+                        Text("Already a user?",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 17,
@@ -1331,8 +1335,9 @@ class _MechSignUpState extends State<MechSignUp> {
                             } else if (_mainPicture == null) {
                               showEmptyToast("Image", context);
                               return;
-                            } else if (currentLocation.latitude == null || currentLocation.latitude == 0) {
-                               showToast("Error getting Location", context);
+                            } else if (currentLocation.latitude == null ||
+                                currentLocation.latitude == 0) {
+                              showToast("Error getting Location", context);
                               return;
                             }
                             mechSignUp(context);
