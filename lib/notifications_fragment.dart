@@ -25,7 +25,7 @@ class _NotificationFState extends State<NotificationF> {
 
     await dataRef.once().then((snapshot) {
       var KEYS = snapshot.value.keys;
-      var DATA = snapshot.value;
+      Map DATA = snapshot.value;
       print(DATA);
 
       list.clear();

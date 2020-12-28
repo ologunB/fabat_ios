@@ -108,7 +108,7 @@ class _MyJobsFState extends State<MyJobsF> {
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: CachedNetworkImage(
-                                      imageUrl: list[index].image,
+                                      imageUrl: list[index].image ?? "ki",
                                       height: 70,
                                       width: 70,
                                       placeholder: (context, url) =>
@@ -129,13 +129,13 @@ class _MyJobsFState extends State<MyJobsF> {
                                     ),
                                   ),
                                   Text(
-                                    list[index].otherPersonName,
+                                    list[index].otherPersonName ?? "ki",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 22, color: Colors.deepPurple),
                                   ),
                                   Text(
-                                    list[index].phoneNumber,
+                                    list[index].phoneNumber ?? "ki",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 22,
@@ -143,7 +143,7 @@ class _MyJobsFState extends State<MyJobsF> {
                                         fontWeight: FontWeight.w900),
                                   ),
                                   Text(
-                                    "₦" + list[index].amount,
+                                    "₦" + list[index].amount?? "ki",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 22,
@@ -152,7 +152,7 @@ class _MyJobsFState extends State<MyJobsF> {
                                   ),
                                   Center(
                                     child: Text(
-                                      list[index].time,
+                                      list[index].time?? "ki",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 22, color: Colors.black),

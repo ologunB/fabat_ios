@@ -599,6 +599,8 @@ class _CusSignUpState extends State<CusSignUp> {
 
       if (value.user != null) {
         user.sendEmailVerification().then((verify) {
+
+
           Map<String, Object> mData = Map();
           mData.putIfAbsent("Company Name", () => _upName.text);
           mData.putIfAbsent("Phone Number", () => _upPhoNum.text);
@@ -609,6 +611,8 @@ class _CusSignUpState extends State<CusSignUp> {
           mData.putIfAbsent(
               "Timestamp", () => DateTime.now().millisecondsSinceEpoch);
 
+
+
           Firestore.instance
               .collection("Customer")
               .document(user.uid)
@@ -617,10 +621,14 @@ class _CusSignUpState extends State<CusSignUp> {
               .collection("All")
               .document(user.uid)
               .setData(mData);
+
+
           _dataRef
               .child("Customer Collection")
               .child(user.uid)
               .set(mData)
+
+
               .then((b) {
             showCupertinoDialog(
                 context: context,
